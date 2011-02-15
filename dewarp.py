@@ -38,7 +38,7 @@ try:
   import Blender.NMesh
   
   blender = True
-  imagePath = '/home/mom/Desktop/CIMG0918.jpg'
+  imagePath = './CIMG0918.jpg'
 except ImportError:
   blender = False
   imagePath = sys.argv[1]
