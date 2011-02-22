@@ -107,7 +107,8 @@ class Point: # Just a simple Point or Vector class.
 
 def ModelToPlane(x, y, z, cz = 1, vz = 1): # Here's the magic. This basically projects the 3D model from 3D onto a 2D plane (the camera). This is how I dewarp.
   # (x, y, z) is the coordinate of the 3D point. (cz, vz) are the heights of the camera and viewer. I played with them, and they don't do much when they're fairly big.
-  
+  # I actually just translated this into Python from this Wikipedia article: http://en.wikipedia.org/wiki/3D_projection
+  # But the math involved isn't that hard. It's just finding the intersection of a line and a plane, where the line is pointing at a focus point above the plane. This approach is just more general.
   a = Point(x, y, z)
   b = Point()
   c = Point(0, 0, cz)
@@ -157,7 +158,7 @@ canvas = Image.new('RGB', image.size) # The output canvas.
 edge_top = [] # I split the two book curves up.
 edge_bottom = []
 
-camera_offset = 20 # Anything > 15 (I have no idea what the units are) looks identical, so 20 works well.
+camera_offset = 20 # This is the height of the camera from the 3D model (I have no idea what the units are). Anything > 15 looks identical, so 20 works well.
 
 for point in verticies: # Iterates through the points
   point2 = ModelToPlane(point[0], point[1], point[2], camera_offset, camera_offset + 1) # 3D -> 2D
